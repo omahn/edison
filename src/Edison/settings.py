@@ -7,6 +7,25 @@ ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 
+# Django Debug Toolbar settings
+#INTERNAL_IPS = ('127.0.0.1',)
+
+#DEBUG_TOOLBAR_PANELS = (
+#    'debug_toolbar.panels.version.VersionDebugPanel',
+#    'debug_toolbar.panels.timer.TimerDebugPanel',
+#    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+#    'debug_toolbar.panels.headers.HeaderDebugPanel',
+#    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+#    'debug_toolbar.panels.template.TemplateDebugPanel',
+#    'debug_toolbar.panels.sql.SQLDebugPanel',
+#    'debug_toolbar.panels.signals.SignalDebugPanel',
+#    'debug_toolbar.panels.logger.LoggingPanel',
+#)
+#DEBUG_TOOLBAR_CONFIG = {
+#    'INTERCEPT_REDIRECTS':False
+#    'HIDE_DJANGO_SQL': False,
+#}
+
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -61,6 +80,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
+    #'django.middleware.csrf.CsrfMiddleware',
+    #'django.middleware.csrf.CsrfResponseMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'Edison.urls'
@@ -76,4 +99,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    #'debug_toolbar',
 )
