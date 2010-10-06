@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # These are the models required for the basic CMDB
 
@@ -23,8 +24,8 @@ class County(models.Model):
 # Where do people/things live?
 class Address(models.Model):
     AddressLineOne = models.CharField(max_length=128)
-    AddressLineTwo = models.CharField(max_length=128)
-    AddressLineThree = models.CharField(max_length=128)
+    AddressLineTwo = models.CharField(max_length=128,blank=True)
+    AddressLineThree = models.CharField(max_length=128,blank=True)
     AddressPostcode = models.CharField(max_length=15)
     AddressCounty = models.ForeignKey('County')
     AddressCountry = models.ForeignKey('Country') 
@@ -38,18 +39,17 @@ class Company(models.Model):
     CompanyHeadOffice = models.ForeignKey('Address')
     CompanySupportNumber = models.CharField(max_length=50)
     CompanySupportEmail = models.EmailField()
-    CompanyAddress = models.ForeignKey('Address')
-    
+        
     def __unicode__(self):
         return self.CompanyName
     
 # A list of all our contacts both within and external to the company we work for
 class Contact(models.Model):
     TITLE_CHOICES = (
-                     'Mr',
-                     'Mrs',
-                     'Miss',
-                     'Ms',
+                     ('Mr','Mr'),
+                     ('Mrs','Mrs'),
+                     ('Miss','Miss'),
+                     ('Ms','Ms')
                      )
     ContactTitle = models.CharField(max_length=6,choices=TITLE_CHOICES)
     ContactFirstName = models.CharField(max_length=128)
@@ -65,7 +65,7 @@ class Contact(models.Model):
 # Our Datacentres
 class DataCentre(models.Model):
     DataCentreName = models.CharField(max_length=255)
-    DataCentreShortCore = models.CharField(max_length=10)
+    DataCentreShortCode = models.CharField(max_length=10)
     DataCentreAddress = models.ForeignKey('Address')
     DataCentrePrincipleContact = models.ForeignKey('Contact')
 
@@ -105,18 +105,19 @@ class ConfigurationItemClass(models.Model):
         return self.ConfigurationItemClassName
 
 # The configuration items (servers/switches etc)
-class ConfigurationItems(models.Model):
+class ConfigurationItem(models.Model):
     ConfigurationItemHostname = models.CharField(max_length=255)
     ConfigurationItemRack = models.ForeignKey('DataCentreRack')
     ConfigurationItemAsset = models.CharField(max_length=128)
     ConfigurationItemSupportTag = models.CharField(max_length=128)
-    ConfigurationItemOwner = models.CharField(max_length=128) # This needs to be reconfigured to point to users in the database...
+    ConfigurationItemClass = models.ForeignKey(ConfigurationItemClass)
+    ConfigurationItemOwner = models.ForeignKey(User)
     
     def __unicode__(self):
         return self.ConfigurationItemHostname
     
 # The network interfaces that are assigned to configuration items
-class NetworkInterfaces(models.Model):
+class NetworkInterface(models.Model):
     NetworkInterfaceName = models.CharField(max_length=5)
     NetworkInterfaceMacAddress = models.CharField(max_length=30)
     NetworkInterfaceIPAddress = models.IPAddressField()
