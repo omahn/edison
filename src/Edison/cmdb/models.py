@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # These are the models required for the basic CMDB
 
@@ -110,7 +111,7 @@ class ConfigurationItems(models.Model):
     ConfigurationItemRack = models.ForeignKey('DataCentreRack')
     ConfigurationItemAsset = models.CharField(max_length=128)
     ConfigurationItemSupportTag = models.CharField(max_length=128)
-    ConfigurationItemOwner = models.CharField(max_length=128) # This needs to be reconfigured to point to users in the database...
+    ConfigurationItemOwner = models.ForeignKey(User)
     
     def __unicode__(self):
         return self.ConfigurationItemHostname
