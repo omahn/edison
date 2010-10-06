@@ -169,6 +169,7 @@ class ConfigurationItem(models.Model):
     ConfigurationItemRack = models.ForeignKey('DataCentreRack')
     ConfigurationItemAsset = models.CharField(max_length=128)
     ConfigurationItemSupportTag = models.CharField(max_length=128)
+    ConfigurationItemClass = models.ForeignKey(ConfigurationItemClass)
     ConfigurationItemOwner = models.ForeignKey(User)
     
     def __unicode__(self):
@@ -181,7 +182,7 @@ class ConfigurationItem(models.Model):
         ordering = ['ConfigurationItemHostname']
         
 # The network interfaces that are assigned to configuration items
-class NetworkInterfaces(models.Model):
+class NetworkInterface(models.Model):
     NetworkInterfaceName = models.CharField(max_length=5)
     NetworkInterfaceMacAddress = models.CharField(max_length=30)
     NetworkInterfaceIPAddress = models.IPAddressField()
