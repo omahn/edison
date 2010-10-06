@@ -10,7 +10,12 @@ class Country(models.Model):
 
     def __unicode__(self):
         return self.CountryCode
-
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Country'
+        verbose_name_plural = 'Countries'
+        ordering = ['CountryName']
     
     
 # Now define the counties/States that we can use
@@ -20,6 +25,12 @@ class County(models.Model):
     
     def __unicode__(self):
         return self.CountyName
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'County'
+        verbose_name_plural = 'Counties'
+        ordering = ['CountyName']
 
 # Where do people/things live?
 class Address(models.Model):
@@ -32,6 +43,12 @@ class Address(models.Model):
 
     def __unicode__(self):
         return u'%s, %s, %s' % (self.AddressLineOne, self.AddressCounty, self.AddressPostcode)
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
+        ordering = ['AddressLineOne']
 
 # What companies are there that we might want to talk to?
 class Company(models.Model):
@@ -42,6 +59,12 @@ class Company(models.Model):
         
     def __unicode__(self):
         return self.CompanyName
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Company'
+        verbose_name_plural = 'Companies'
+        ordering = ['CompanyName']
     
 # A list of all our contacts both within and external to the company we work for
 class Contact(models.Model):
@@ -60,6 +83,12 @@ class Contact(models.Model):
     
     def __unicode__(self):
         return u'%s %s %s' % (self.ContactTitle, self.ContactFirstName, self.ContactLastName)
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Contact'
+        verbose_name_plural = 'Contacts'
+        ordering = ['ContactFirstName']
 
     
 # Our Datacentres
@@ -71,6 +100,12 @@ class DataCentre(models.Model):
 
     def __unicode__(self):
         return self.DataCentreShortCode
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Data Centre'
+        verbose_name_plural = 'Data Centres'
+        ordering = ['DataCentreName']
 
 # The rooms in the datacentres
 class DataCentreRoom(models.Model):
@@ -80,6 +115,12 @@ class DataCentreRoom(models.Model):
     def __unicode__(self):
         return u'%s in %s' % (self.DataCentreRoomName, self.DataCentre)
     
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Data Centre Room'
+        verbose_name_plural = 'Data Centre Rooms'
+        ordering = ['DataCentreRoomName']
+    
 # The suites in the datacentres
 class DataCentreSuite(models.Model):
     DataCentreSuiteName = models.CharField(max_length=128)
@@ -87,6 +128,12 @@ class DataCentreSuite(models.Model):
     
     def __unicode__(self):
         return u'%s -> %s' % (self.DataCentreSuiteName, self.DataCentreRoom)
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Data Centre Suite'
+        verbose_name_plural = 'Data Centre Suites'
+        ordering = ['DataCentreSuiteName']
 
 # The racks in the suites in the rooms in the datacentres....
 class DataCentreRack(models.Model):
@@ -96,6 +143,12 @@ class DataCentreRack(models.Model):
     
     def __unicode__(self):
         return u'%s -> %s (%s)' % (self.DataCentreRackName, self.DataCentreSuite, self.DataCentreRoom)
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Data Centre Rack'
+        verbose_name_plural = 'Data Centre Racks'
+        ordering = ['DataCentreRackName']
 
 # The different classes of configuration items
 class ConfigurationItemClass(models.Model):
@@ -103,6 +156,12 @@ class ConfigurationItemClass(models.Model):
     
     def __unicode__(self):
         return self.ConfigurationItemClassName
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Configuration Item Class'
+        verbose_name_plural = 'Configuration Item Classes'
+        ordering = ['ConfigurationItemClassName']
 
 # The configuration items (servers/switches etc)
 class ConfigurationItem(models.Model):
@@ -115,9 +174,24 @@ class ConfigurationItem(models.Model):
     def __unicode__(self):
         return self.ConfigurationItemHostname
     
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Configuration Item'
+        verbose_name_plural = 'Configuration Items'
+        ordering = ['ConfigurationItemHostname']
+        
 # The network interfaces that are assigned to configuration items
 class NetworkInterfaces(models.Model):
     NetworkInterfaceName = models.CharField(max_length=5)
     NetworkInterfaceMacAddress = models.CharField(max_length=30)
     NetworkInterfaceIPAddress = models.IPAddressField()
     ConfigurationItem = models.ForeignKey('ConfigurationItem')
+    
+    def __unicode__(self):
+        return self.NetworkInterfaceName    
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Network Interface'
+        verbose_name_plural = 'Network Interfaces'
+        ordering = ['NetworkInterfaceName']
