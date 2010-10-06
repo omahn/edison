@@ -4,7 +4,7 @@ from django.contrib import admin
 
 admin.site.register(ConfigurationItem)
 admin.site.register(ConfigurationItemClass)
-admin.site.register(NetworkInterfaces)
+admin.site.register(NetworkInterface)
 admin.site.register(DataCentreRack)
 admin.site.register(DataCentreSuite)
 admin.site.register(DataCentreRoom)
