@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^Edison/', include('Edison.foo.urls')),
+    #(r'^Edison/', include('Edison.foo.urls')),
     (r'^login/$',  login),
     (r'^logout/$', logout),
 
