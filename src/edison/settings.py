@@ -86,7 +86,7 @@ MIDDLEWARE_CLASSES = (
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-ROOT_URLCONF = 'Edison.urls'
+ROOT_URLCONF = 'edison.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -104,5 +104,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'cmdb',
     'piston',
+    'changemanagment',
     #'debug_toolbar',
 )

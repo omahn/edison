@@ -1,5 +1,5 @@
 # ensure that we include all the models required to administer this app
-from Edison.cmdb.models import *
+from edison.cmdb.models import *
 from django.contrib import admin
 
 admin.site.register(ConfigurationItem)

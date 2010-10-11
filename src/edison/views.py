@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 # Project specific imports
-from Edison.cmdb.models import *
+from edison.cmdb.models import *
 
 @login_required
 def home(request):
