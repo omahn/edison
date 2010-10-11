@@ -3,3 +3,4 @@ from edison.changemanagement.models import *
 from django.contrib import admin
 
 admin.site.register(ChangeHeader)
+admin.site.register(Details)
