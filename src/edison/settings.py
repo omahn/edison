@@ -104,6 +104,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'cmdb',
     'piston',
-    'changemanagment',
+    'changemanagement',
     #'debug_toolbar',
 )
