@@ -12,7 +12,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', home),
     # REST based API URI's
-    (r'^api/', include('edison.api.urls')),
+#    (r'^api/', include('edison.api.urls')),
     (r'^cmdb/', include('edison.cmdb.urls')),
     (r'^changemanagement/', include('edison.changemanagement.urls')),
 

@@ -12,7 +12,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', home),
     # REST based API URI's
-    (r'^api/', include('edison.api.urls')),
+#    (r'^api/', include('edison.api.urls')),
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
