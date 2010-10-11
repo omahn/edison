@@ -8,6 +8,7 @@ class ChangeHeader(models.Model):
 	Requestor = models.ForeignKey(User)
 	Summary = models.TextField()
 	AffectedItems = models.ManyToManyField(ConfigurationItem)
+	GitRepoUrl = models.CharField(max_length=255)
 
 	def __unicode__(self):
 		return self.Title
@@ -16,3 +17,16 @@ class ChangeHeader(models.Model):
 		verbose_name = 'Change Request Header'
 		verbose_name_plural = 'Change Request Headers'
 		ordering = ['Title']
+
+class Details(models.Model):
+	Header = models.ForeignKey(ChangeHeader)
+	Description = models.TextField()
+	GitCommit = models.CharField(max_length=255)
+	
+	def __unicode__(self):
+		return self.Description
+
+	class Meta:
+		verbose_name = 'Change Request Detail'
+		verbose_name_plural = 'Change Request Details'
+		ordering = ['Description']
