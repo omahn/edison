@@ -1,10 +1,10 @@
 from piston.handler import BaseHandler
-from edison.cmdb.models import ConfigurationItem
+from edison.cmdb.models import *
 
 class CfgItemHandler(BaseHandler):
 	allowed_methods = ('GET',)
-	fields = ('Hostname','Rack','Asset','DataCentre')
-	model = ConfigurationItem
+	fields = ('Hostname',('Rack',('Suite',('Room',(),),),),'Asset','DataCentre')
+	model = ConfigurationItem,DataCentreRack,DataCentreSuite,DataCentreRoom
 
 
 	def read(self,request,hostname):

@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
 
-from edison.orchestra.handlers import CfgItemHandler
+from edison.api.handlers import CfgItemHandler
 
 cfgitem_resource = Resource(handler=CfgItemHandler)
 
