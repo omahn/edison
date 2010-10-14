@@ -105,5 +105,6 @@ INSTALLED_APPS = (
     'cmdb',
     'piston',
     'changemanagement',
+    'orchestra',
     #'debug_toolbar',
 )

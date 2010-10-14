@@ -1,16 +1,10 @@
 from django.conf.urls.defaults import *
-from django.conf import settings
-from django.contrib.auth.views import login, logout
+from piston.resource import Resource
 
-# Project specific imports
-from edison.views import *
+from edison.orchestra.handlers import CfgItemHandler
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+cfgitem_resource = Resource(handler=CfgItemHandler)
 
 urlpatterns = patterns('',
-    (r'^$', home),
-    # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
 )
