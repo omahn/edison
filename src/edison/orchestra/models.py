@@ -1,0 +1,40 @@
+from django.db import models
+from django.contrib.auth.models import User
+from edison.cmdb.models import ConfigurationItem
+
+# Models for Orchestration App
+
+# The model for orchestration classes (puppet/Chef etc)
+class OrchestraClass(models.Model):
+	Name = models.CharField(max_length=255)
+	Creator = models.ForeignKey(User)
+	Notes = models.TextField()
+	AffectedItems = models.ManyToManyField(ConfigurationItem)
+
+	def __unicode__(self):
+		return self.Name
+
+	class Meta:
+		verbose_name = 'Orchestration Class'
+		verbose_name_plural = 'Orchestration Classes'
+		ordering = ['Name']
+
+# Metadata to be provided for each cfgitem (Datacentre etc)
+class OrchestraMetaDataName(models.Model):
+	Name = models.CharField(max_length=255)
+	
+	def __unicode__(self):
+		return self.Name
+
+	class Meta:
+		verbose_name = 'Orchestration Metadata'
+		ordering = ['Name']
+
+class OrchestraMetaDataValue(models.Model):
+	Name = models.ForeignKey(OrchestraMetaDataName)
+	Value = models.CharField(max_length=255)
+	AffectedItems = models.ManyToManyField(ConfigurationItem)
+ 	
+	def __unicode__(self):
+		return self.Value
+	
