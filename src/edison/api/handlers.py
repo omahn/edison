@@ -21,8 +21,18 @@ class PuppetHandler(BaseHandler):
 	allowed_methods = ('GET')
 
 	def read(self,request,hostname):
-		results = OrchestraClass.objects.select_related('Name','Hostname').filter(AffectedItems__Hostname__icontains = hostname)
-		data = [] 
-		for result in results: 
-			data.append(result.Name)
+		# Get a list of the configuration Management Classes
+		classresults = OrchestraClass.objects.select_related('Name','Hostname').filter(AffectedItems__Hostname__icontains = hostname)
+		classes = [] 
+		for classresult in classresults: 
+			classes.append(classresult.Name)
+		data = {'classes' : classes}
+		# get the metadata
+		metadataresults = OrchestraMetaDataValue.objects.select_related('Name','Value','Hostname').filter(AffectedItems__Hostname__icontains = hostname)
+		md = {}
+		for mdresult in metadataresults:
+			# The mdresult is a model so we need to convert it to a string
+			md[str(mdresult.Name)] = mdresult.Value
+
+		data['metadata'] = md
 		return data
