@@ -1,24 +1,41 @@
-# This script takes the "parameters" output from cobbler and converts it into facts
+# This script takes a number of pieces of data from the edison API and converts them to facts
 require 'net/http'
 require 'yaml'
 
-server = Net::HTTP.new('puppet',80)
+edisonserver = 'localhost'
+edisonport = 8000
+
+
+server = Net::HTTP.new(edisonserver,edisonport)
 this_host = Facter.fqdn 
-headers,data = server.get("/cblr/svc/op/puppet/hostname/#{this_host}")
-data_hash = YAML::load(data)
+
+# Get the puppet classes and metadata from the /puppet url
+factheaders,factdata = server.get("/api/puppet/#{this_host}/?format=yaml")
+factdata_hash = YAML::load(factdata)
 
 # create the "puppet_classes" fact
 Facter.add('puppet_classes') do
 	setcode do
-		data_hash['classes']
+		factdata_hash['classes']
 	end
 end
 
 # setup the parameters
-data_hash['parameters'].each do |key,value|
+factdata_hash['metadata'].each do |key,value|
 	Facter.add(key.lstrip()) do
 		setcode do
 			value
 		end		
 	end
 end
+
+# get the system facts from the /host url
+hostheaders,hostdata = server.get("/api/hosts/#{this_host}/?format=yaml")
+hostdata_hash = YAML::load(hostdata)
+
+# setup the parameters
+hostdata_hash.each do |key,value|
+	Facter.add(key.lstrip()) do
+		setcode do
+			value
+		end		
