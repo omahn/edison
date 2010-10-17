@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     (r'^api/', include('edison.api.urls')),
     (r'^cmdb/', include('edison.cmdb.urls')),
     (r'^changemanagement/', include('edison.changemanagement.urls')),
+    (r'^accounts/login/$',  login),
+    (r'^accounts/logout/$', logout),
+    (r'^accounts/$', home),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
