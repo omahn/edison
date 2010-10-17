@@ -15,7 +15,7 @@
     <div id='header' class='span-24 last'>
         <div id='branding'>
 		<h1>Edison</h1>
-		<p><i>"Because the hamster keeps on running..."</i></p>
+		<p><i>"The Hamster that keeps your infrastructure running..."</i></p>
 		<p>{% if user.is_authenticated %} Welcome {{ user.username }} {% endif %}</p></div>
     </div>
     <div id='content' class='span-24'>
