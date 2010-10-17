@@ -11,28 +11,31 @@
 
 </head>
 <body>
-<div id='page' class='showgrid'>
-    <div id='header' class='clearfix'>
-        <div id='branding'><h1>Edison</h1><p><i>"Because the hamster keeps on running..."</i></p><p>Welcome {{ user.username }}</p></div>
+<div id='page' class='container'>
+    <div id='header' class='span-24 last'>
+        <div id='branding'>
+		<h1>Edison</h1>
+		<p><i>"Because the hamster keeps on running..."</i></p>
+		<p>{% if user.is_authenticated %} Welcome {{ user.username }} {% endif %}</p></div>
     </div>
-    <div id='content' class='clearfix'>
-	<div id='main'>
-    {% block main %}
-    {% endblock %}
-	</div>
-        <div id='local'>
-            {% block local %}{% endblock %}
-        </div>
-        <div id='nav'>
+    <div id='content' class='span-24'>
+        <div id='nav' class='span-5'>
             {% block navigation %} 
-	<a href='/cmdb/'>Configuration Database</a>
-	<a href='/changemanagement/'>Change Management</a>
-	<a href='/orchestra/'>Configuration Management</a>
+	<a href='/cmdb/'>Configuration Database</a><br />
+	<a href='/changemanagement/'>Change Management</a><br />
+	<a href='/orchestra/'>Configuration Management</a><br />
 	{% if user.is_authenticated %}
  	<a href='/accounts/logout'>Logout</a>&nbsp;
  	{% else %}
  	<a href='/accounts/login'>Login</a>&nbsp;
  	{% endif %}{% endblock %}
+        </div>
+	<div id='main' class='span-18 last'>
+    {% block main %}
+    {% endblock %}
+	</div>
+        <div id='local'>
+            {% block local %}{% endblock %}
         </div>
     </div>
     </div>
