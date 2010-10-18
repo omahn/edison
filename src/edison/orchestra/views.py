@@ -18,7 +18,7 @@ def custom_proc(request):
 
 @login_required
 def home(request):
-    title = 'Configuration Database Home'
+    title = 'Orchestration Home'
     return render_to_response('home.tpl',
             locals(),
             context_instance=RequestContext(request, processors=[custom_proc]))
