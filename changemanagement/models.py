@@ -15,12 +15,37 @@ class ChangeStatus(models.Model):
 		verbose_name = 'Current Status'
 		verbose_name_plural = 'Change Statuses'
 
+class Scmtype(models.Model):
+	Name = models.CharField(max_length=50)
+	LibraryName = models.CharField(max_length=255)
+
+	def __unicode__(self):
+		return self.Name
+
+	class Meta:
+		verbose_name = 'Source Code Management Tool'
+		ordering = ['Name']
+
+class ScmRepo(models.Model):
+	Scm = models.ForeignKey(Scmtype)
+	Url = models.CharField(max_length=255)
+	Name = models.CharField(max_length=255)
+	Description = models.CharField(max_length=255)
+
+	def __unicode__(self):
+		return self.Name
+
+	class Meta:
+		verbose_name = 'Source Code Management Repository'
+		verbose_name_plural = 'Source Code Management Repositories'
+		ordering = ['Name']
+
 class ChangeHeader(models.Model):
 	Title = models.CharField(max_length=255)
 	Requestor = models.ForeignKey(User)
 	Summary = models.TextField()
 	AffectedItems = models.ManyToManyField(ConfigurationItem)
-	GitRepoUrl = models.CharField(max_length=255)
+	ScmRepo = models.ForeignKey(ScmRepo)
         Created = models.DateField(editable=False)
     	Due = models.DateTimeField()	
 	Status = models.ForeignKey(ChangeStatus)
@@ -43,7 +68,7 @@ class Details(models.Model):
 	Header = models.ForeignKey(ChangeHeader)
 	Description = models.TextField()
 	GitCommit = models.CharField(max_length=255)
-	Created = models.DateTimeField()
+	Created = models.DateTimeField(editable=False)
 	UpdatedBy = models.ForeignKey(User)
 	
 	def save(self):
@@ -58,3 +83,4 @@ class Details(models.Model):
 		verbose_name = 'Change Request Detail'
 		verbose_name_plural = 'Change Request Details'
 		ordering = ['Description']
+
