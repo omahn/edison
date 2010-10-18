@@ -6,9 +6,20 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 # Project specific imports
-from edison.cmdb.models import *
+from models import *
+def custom_proc(request):
+    "A context processor that provides 'app', 'user' and 'ip_address'."
+    return {
+        'app': 'Edison',
+        'user': request.user,
+        'ip_address': request.META['REMOTE_ADDR']
+    }
+
 
 @login_required
 def home(request):
-    return HttpResponse('Configuration Management Database home page')
+    title = 'Configuration Management Home'
+    return render_to_response('home.tpl',
+            locals(),
+            context_instance=RequestContext(request, processors=[custom_proc]))
 
