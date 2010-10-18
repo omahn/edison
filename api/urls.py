@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
 
-from edison.api.handlers import *
+from api.handlers import *
 
 cfgitem_resource = Resource(handler=CfgItemHandler)
 puppet_resource = Resource(handler=PuppetHandler)

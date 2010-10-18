@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.views import login, logout
 
 # Project specific imports
-from edison.views import *
+from views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -12,10 +12,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', home),
     # REST based API URI's
-    (r'^api/', include('edison.api.urls')),
-    (r'^cmdb/', include('edison.cmdb.urls')),
-    (r'^changemanagement/', include('edison.changemanagement.urls')),
-    (r'^orchestra/', include('edison.orchestra.urls')),
+    (r'^api/', include('api.urls')),
+    (r'^cmdb/', include('cmdb.urls')),
+    (r'^changemanagement/', include('changemanagement.urls')),
+    (r'^orchestra/', include('orchestra.urls')),
     (r'^accounts/login/$',  login),
     (r'^accounts/logout/$', logout),
     (r'^accounts/$', home),

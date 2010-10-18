@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 # Project specific imports
-from edison.cmdb.models import *
+from cmdb.models import *
 
 #
 def custom_proc(request):

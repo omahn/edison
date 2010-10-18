@@ -54,7 +54,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = "/var/djangosites/edison/src/edison/media"
+MEDIA_ROOT = "/var/djangosites/edison/media"
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -65,7 +65,7 @@ MEDIA_URL = 'http://edison/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = 'http:/edison/media/'
+ADMIN_MEDIA_PREFIX = 'http://edison/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '&(nwanlz8mdftiy06qrjkqh_i428x90u&ajb%lipbc(wk79gb*'
@@ -87,13 +87,13 @@ MIDDLEWARE_CLASSES = (
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-ROOT_URLCONF = 'edison.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/var/djangosites/edison/src/edison/templates",
+    "/var/djangosites/edison/templates",
 )
 
 INSTALLED_APPS = (

@@ -1,6 +1,6 @@
 from piston.handler import BaseHandler
-from edison.orchestra.models import *
-from edison.cmdb.models import *
+from orchestra.models import *
+from cmdb.models import *
 
 class CfgItemHandler(BaseHandler):
 	allowed_methods = ('GET',)

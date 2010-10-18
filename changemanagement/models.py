@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from edison.cmdb.models import ConfigurationItem
+from cmdb.models import ConfigurationItem
 
 # Models for Change Management System
 class ChangeStatus(models.Model):
