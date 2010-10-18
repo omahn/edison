@@ -32,11 +32,9 @@
         </div>
 	<div id='main' class='span-18 last'>
     {% block main %}
+	<h2>{{ title }}</h2>
     {% endblock %}
 	</div>
-        <div id='local'>
-            {% block local %}{% endblock %}
-        </div>
     </div>
     </div>
 </div>

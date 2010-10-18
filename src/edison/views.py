@@ -11,7 +11,7 @@ from edison.cmdb.models import *
 def custom_proc(request):
     "A context processor that provides 'app', 'user' and 'ip_address'."
     return {
-        'app': 'OWL',
+        'app': 'Edison',
         'user': request.user,
         'ip_address': request.META['REMOTE_ADDR']
     }
