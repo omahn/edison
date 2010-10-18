@@ -21,9 +21,9 @@
     <div id='content' class='span-24'>
         <div id='nav' class='span-5'>
             {% block navigation %} 
-	<a href='/cmdb/'>Configuration Database</a><br />
+	<a href='/cmdb/'>Configuration Management</a><br />
 	<a href='/changemanagement/'>Change Management</a><br />
-	<a href='/orchestra/'>Configuration Management</a><br />
+	<a href='/orchestra/'>Orchestration</a><br />
 	{% if user.is_authenticated %}
  	<a href='/accounts/logout'>Logout</a>&nbsp;
  	{% else %}
