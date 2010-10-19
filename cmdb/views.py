@@ -3,7 +3,8 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.forms.models import modelformset_factory
+
 
 # Project specific imports
 from models import *
@@ -22,4 +23,14 @@ def home(request):
     return render_to_response('home.tpl',
             locals(),
             context_instance=RequestContext(request, processors=[custom_proc]))
-
+@login_required
+def edit(request,cfgid):
+    title = 'Edit an Item'
+    ItemFormSet = modelformset_factory(ConfigurationItem,max_num=1,extra=0)
+    if request.method == 'POST':
+        formset = ItemFormSet(request.POST, request.FILES)
+	if formset.is_valid():
+	   formset.save()
+    else:
+        formset = ItemFormSet()
+	return render_to_response('edit.tpl', {"formset": formset,})

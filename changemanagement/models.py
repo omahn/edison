@@ -46,7 +46,7 @@ class ChangeHeader(models.Model):
 	Summary = models.TextField()
 	AffectedItems = models.ManyToManyField(ConfigurationItem)
 	ScmRepo = models.ForeignKey(ScmRepo)
-        Created = models.DateField(editable=False)
+        Created = models.DateField()
     	Due = models.DateTimeField()	
 	Status = models.ForeignKey(ChangeStatus)
 	Completed = models.BooleanField(editable=False)
@@ -68,13 +68,13 @@ class Details(models.Model):
 	Header = models.ForeignKey(ChangeHeader)
 	Description = models.TextField()
 	GitCommit = models.CharField(max_length=255)
-	Created = models.DateTimeField(editable=False)
+	Created = models.DateTimeField()
 	UpdatedBy = models.ForeignKey(User)
 	
 	def save(self):
 		if not self.id:
 	        	self.created = datetime.date.today()
-	        super(ChangeHeader, self).save()
+	        super(Details, self).save()
 
 	def __unicode__(self):
 		return self.Description

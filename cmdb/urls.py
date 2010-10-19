@@ -11,6 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^$', home),
+    (r'^edit/(?P<cfgid>\d+)/$',edit),
     # REST based API URI's
     (r'^api/', include('api.urls')),
 
