@@ -16,11 +16,11 @@
         <div id='branding'>
 		<h1>Edison</h1>
 		<p><i>"The Hamster that keeps your infrastructure running..."</i></p>
-		<p>{% if user.is_authenticated %} Welcome {{ user.username }} {% endif %}</p></div>
     </div>
     <div id='content' class='span-24'>
         <div id='nav' class='span-5'>
             {% block navigation %} 
+	<p>{% if user.is_authenticated %} Welcome {{ user.username }} {% endif %}</p>
 	<a href='/cmdb/'>Configuration Management</a><br />
 	<a href='/changemanagement/'>Change Management</a><br />
 	<a href='/orchestra/'>Orchestration</a><br />

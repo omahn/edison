@@ -10,6 +10,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^list/', listdata),
     (r'^$', home),
     (r'^edit/(?P<cfgid>\d+)/$',edit),
     # REST based API URI's
