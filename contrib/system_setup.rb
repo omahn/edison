@@ -2,8 +2,8 @@
 require 'net/http'
 require 'yaml'
 
-edisonserver = 'localhost'
-edisonport = 8000
+edisonserver = 'edison'
+edisonport = 80
 
 
 server = Net::HTTP.new(edisonserver,edisonport)
@@ -39,3 +39,5 @@ hostdata_hash.each do |key,value|
 		setcode do
 			value
 		end		
+	end
+end
