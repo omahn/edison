@@ -19,7 +19,7 @@ def custom_proc(request):
 @login_required
 def home(request):
     title = 'Change Management Home'
-    return render_to_response('home.tpl',
+    return render_to_response('changemanagement/home.tpl',
             locals(),
             context_instance=RequestContext(request, processors=[custom_proc]))
 
