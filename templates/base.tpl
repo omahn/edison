@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>Edison - {{ title }}</title>
     <link rel="stylesheet" href="/media/css/screen.css" type="text/css" media="screen, projection">
     <link rel="stylesheet" href="/media/css/print.css" type="text/css" media="print">
     <!--[if IE]>
