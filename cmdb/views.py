@@ -40,13 +40,12 @@ class EditForm(ModelForm):
 @login_required
 def edit(request,cfgid):
     title = 'Edit an Item'
-    if request.method == 'POST':
-        form = EditForm(request.POST)
-	if form.is_valid():
-	   form.save()
-           request.user.message_set.create(message='The Configuration Item was updated sucessfully')
-           return render_to_response('cmdb/edit.tpl',context_instance=RequestContext(request, processors=[custom_proc]))
+    cfgitem = ConfigurationItem.objects.get(pk=cfgid)
+    form = EditForm(request.POST,instance=cfgitem)
+    if form.is_valid():
+       form.save()
+       request.user.message_set.create(message='The Configuration Item was updated sucessfully')
+       return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
     else:
-	cfgitem = ConfigurationItem.objects.get(pk=cfgid)
-        form = EditForm(request.POST,instance=cfgitem)
-	return render_to_response('cmdb/edit.tpl', {"formset": form,})
+       request.user.message_set.create(message='The Configuration Item was not updated sucessfully')
+       return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
