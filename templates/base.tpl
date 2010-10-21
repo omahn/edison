@@ -18,9 +18,7 @@
         </div>
         <div id='content' class='span-24'>
             {% block navigation %}
-                <div id='nav' class='span-5'>
-                    {% include 'nav.tpl' %}
-                </div>
+                {% include 'nav.tpl' %}
             {% endblock %}
             {% block main %}
                 <div id='main' class='span-18 last'>
