@@ -11,10 +11,26 @@
         <form method="post" action="">
 	<div class='span-8 last'>
 	    <div class='span-2'>
+	         <label for='Owner'>Owner:</label>
+            </div>
+	    <div class='span-4 last'>
+		{{ form.Owner }} {{ form.Owner.errors }}
+	    </div>
+	</div>
+	<div class='span-8 last'>
+	    <div class='span-2'>
+	         <label for='Class'>Class:</label>
+            </div>
+	    <div class='span-4 last'>
+		{{ form.Class }} {{ form.Class.errors }}
+	    </div>
+	</div>
+	<div class='span-8 last'>
+	    <div class='span-2'>
 	         <label for='Hostname'>Hostname:</label>
             </div>
 	    <div class='span-4 last'>
-		{{ form.Hostname }}
+		{{ form.Hostname }} {{ form.Hostname.errors }}
 	    </div>
 	</div>
 	<div class='span-8 last'>
@@ -22,7 +38,7 @@
 	         <label for='Hostname'>Location:</label>
             </div>
 	    <div class='span-4 last'>
-		{{ form.Rack }}
+		{{ form.Rack }} {{ form.Rack.errors }}
 	    </div>
 	</div>
 	<div class='span-8 last'>
@@ -30,7 +46,7 @@
 	         <label for='Hostname'>IP Address:</label>
             </div>
 	    <div class='span-4 last'>
-		{{ form.NetworkInterface }}
+		{{ form.NetworkInterface }} {{ form.NetworkInterface.errors }}
 	    </div>
 	</div>
 	<div class='span-8 last'>
@@ -38,7 +54,7 @@
 	         <label for='Hostname'>Asset Number:</label>
             </div>
 	    <div class='span-4 last'>
-		{{ form.Asset }}
+		{{ form.Asset }} {{ form.Asset.errors }}
 	    </div>
 	</div>
 	<div class='span-8 last'>
@@ -46,7 +62,7 @@
 	         <label for='Hostname'>Support Tag:</label>
             </div>
 	    <div class='span-4 last'>
-		{{ form.SupportTag }}
+		{{ form.SupportTag }} {{ form.SupportTag.errors }}
 	    </div>
 	</div>
 	<div class='span-8 last'>
