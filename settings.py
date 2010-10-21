@@ -8,7 +8,7 @@ ADMINS = (
 )
 
 # Django Debug Toolbar settings
-INTERNAL_IPS = ('127.0.0.1','192.168.1.56')
+INTERNAL_IPS = ('127.0.0.1','192.168.1.56','192.168.3.57')
 
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
