@@ -96,6 +96,9 @@ TEMPLATE_DIRS = (
     "/var/djangosites/edison/templates",
 )
 
+# set oauth callback address
+OAUTH_CALLBACK_VIEW="api.views.request_token_ready"
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
