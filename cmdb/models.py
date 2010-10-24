@@ -163,6 +163,21 @@ class ConfigurationItemClass(models.Model):
         verbose_name_plural = 'Configuration Item Classes'
         ordering = ['Name']
 
+# The network interfaces that are assigned to configuration items
+class NetworkInterface(models.Model):
+    Name = models.CharField(max_length=5)
+    MacAddress = models.CharField(max_length=30)
+    IPAddress = models.IPAddressField()
+    
+    def __unicode__(self):
+        return u'%s -> %s' % (self.IPAddress, self.MacAddress)    
+    
+    class Meta:
+        #permissions = ()
+        verbose_name = 'Network Interface'
+        verbose_name_plural = 'Network Interfaces'
+        ordering = ['Name']
+
 # The configuration items (servers/switches etc)
 class ConfigurationItem(models.Model):
     Hostname = models.CharField(max_length=255)
@@ -171,6 +186,8 @@ class ConfigurationItem(models.Model):
     SupportTag = models.CharField(max_length=128)
     Class = models.ForeignKey(ConfigurationItemClass)
     Owner = models.ForeignKey(User)
+    NetworkInterface = models.ManyToManyField(NetworkInterface)
+
     
     def __unicode__(self):
         return self.Hostname
@@ -181,18 +198,4 @@ class ConfigurationItem(models.Model):
         verbose_name_plural = 'Configuration Items'
         ordering = ['Hostname']
         
-# The network interfaces that are assigned to configuration items
-class NetworkInterface(models.Model):
-    Name = models.CharField(max_length=5)
-    MacAddress = models.CharField(max_length=30)
-    IPAddress = models.IPAddressField()
-    ConfigurationItem = models.ForeignKey('ConfigurationItem')
-    
-    def __unicode__(self):
-        return self.Name    
-    
-    class Meta:
-        #permissions = ()
-        verbose_name = 'Network Interface'
-        verbose_name_plural = 'Network Interfaces'
-        ordering = ['Name']
+

@@ -10,3 +10,11 @@ urlpatterns = patterns('',
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
 )
+
+urlpatterns += patterns(
+    'piston.authentication',
+    url(r'^oauth/request_token/$','oauth_request_token'),
+    url(r'^oauth/authorize/$','oauth_user_auth'),
+    url(r'^oauth/access_token/$','oauth_access_token'),
+)
+

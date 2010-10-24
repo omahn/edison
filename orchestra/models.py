@@ -36,5 +36,5 @@ class OrchestraMetaDataValue(models.Model):
 	AffectedItems = models.ManyToManyField(ConfigurationItem)
  	
 	def __unicode__(self):
-		return self.Value
+		return u'%s = %s' % (self.Name,self.Value)
 	
