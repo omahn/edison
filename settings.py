@@ -111,5 +111,6 @@ INSTALLED_APPS = (
     'piston',
     'changemanagement',
     'orchestra',
+    'auditorium',
     'debug_toolbar',
 )

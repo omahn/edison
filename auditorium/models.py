@@ -9,7 +9,7 @@ class Package(models.Model):
 	Name = models.CharField(max_length=255)
 	Version = models.CharField(max_length=255)
 	Repository = models.CharField(max_length=255)
-	AffectedItem = models.ForeignKeyField(ConfigurationItem)
+	AffectedItem = models.ForeignKey(ConfigurationItem)
 
 	def __unicode__(self):
 		return u'%s - %s' % (self.Name,self.Version)
