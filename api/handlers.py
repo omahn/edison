@@ -1,6 +1,7 @@
 from piston.handler import BaseHandler
 from orchestra.models import *
 from cmdb.models import *
+from auditorium.models import *
 
 class CfgItemHandler(BaseHandler):
 	allowed_methods = ('GET',)
@@ -36,3 +37,6 @@ class PuppetHandler(BaseHandler):
 
 		data['metadata'] = md
 		return data
+
+class PackageHandler(BaseHandler):
+	model = Package

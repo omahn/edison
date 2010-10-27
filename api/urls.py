@@ -5,10 +5,13 @@ from api.handlers import *
 
 cfgitem_resource = Resource(handler=CfgItemHandler)
 puppet_resource = Resource(handler=PuppetHandler)
+package_resource = Resource(handler=PackageHandler)
 
 urlpatterns = patterns('',
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
+    # url(r'^auditorium/packages/(?P<id>\d+)$', package_resource),
+    url(r'^auditorium/packages$', package_resource),
 )
 
 urlpatterns += patterns(

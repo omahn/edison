@@ -4,6 +4,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.forms import ModelForm
+from models import *
+from reports import ReportCfgItem
+from geraldo.generators import PDFGenerator
 
 
 # Project specific imports
@@ -51,3 +54,11 @@ def edit(request,cfgid):
         cfgitem = ConfigurationItem.objects.get(pk=cfgid)
         form = EditForm(instance=cfgitem)
     return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
+
+def report_cfgitem(request):
+	resp = HttpResponse(mimetype='application/pdf')
+	cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
+	report = ReportCfgItem(queryset=cfgitems)
+	report.generate_by(PDFGenerator,filename=resp)
+
+	return resp

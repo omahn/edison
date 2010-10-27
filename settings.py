@@ -113,4 +113,5 @@ INSTALLED_APPS = (
     'orchestra',
     'auditorium',
     'debug_toolbar',
+    'geraldo',
 )
