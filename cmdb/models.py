@@ -245,8 +245,8 @@ class ConfigurationItem(models.Model):
     NetworkInterface = models.ManyToManyField(NetworkInterface)
     OperatingSystem = models.ForeignKey(OperatingSystemVersion)
     VMImagePath = models.CharField(max_length=255,blank=True,null=True,verbose_name='Path for Virtual Images')
-    IsVirtual = models.Boolean()
-    IsVMHost = models.Boolean()
+    IsVirtual = models.BooleanField()
+    IsVMHost = models.BooleanField()
     VMDefinition = models.ForeignKey(VirtualServerDefinition,blank=True,null=True)
 
     def __unicode__(self):
