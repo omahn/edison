@@ -5,9 +5,12 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.forms import ModelForm
 from models import *
-from reports import ReportCfgItem
-from geraldo.generators import PDFGenerator
-
+try:
+	from geraldo.generators import PDFGenerator
+	geraldo_loaded = True
+	from reports import ReportCfgItem
+except ImportError:
+	geraldo_loaded = False
 
 # Project specific imports
 from models import *
@@ -55,11 +58,13 @@ def edit(request,cfgid):
         form = EditForm(instance=cfgitem)
     return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
 
-@login_required
-def report_cfgitem(request):
-	resp = HttpResponse(mimetype='application/pdf')
-	cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
-	report = ReportCfgItem(queryset=cfgitems)
-	report.generate_by(PDFGenerator,filename=resp)
+# only show the reports if geraldo is loaded
+if geraldo_loaded == True:
+	@login_required
+	def report_cfgitem(request):
+		resp = HttpResponse(mimetype='application/pdf')
+		cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
+		report = ReportCfgItem(queryset=cfgitems)
+		report.generate_by(PDFGenerator,filename=resp)
 
-	return resp
+		return resp
