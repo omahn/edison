@@ -55,6 +55,7 @@ def edit(request,cfgid):
         form = EditForm(instance=cfgitem)
     return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
 
+@login_required
 def report_cfgitem(request):
 	resp = HttpResponse(mimetype='application/pdf')
 	cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
