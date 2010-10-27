@@ -2,8 +2,6 @@
 from cmdb.models import *
 from django.contrib import admin
 
-admin.site.register(County)
-admin.site.register(Country)
 admin.site.register(Country)
 admin.site.register(County)
 admin.site.register(Address)
