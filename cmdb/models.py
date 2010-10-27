@@ -178,6 +178,62 @@ class NetworkInterface(models.Model):
         verbose_name_plural = 'Network Interfaces'
         ordering = ['Name']
 
+class OperatingSystemName(models.Model):
+    Name = models.CharField(max_length=200)
+    SupportCompany = models.ForeignKey(Company)
+
+    def __unicode__(self):
+        return u'%s supported by %s' % (self.Name, self.SupportCompany)
+    
+class OperatingSystemVersion(models.Model):
+    Name = models.ForeignKey(OperatingSystemName)
+    Version = models.CharField(max_length=128)
+    EOLDate = models.DateField(blank=True, null=True, verbose_name='End of Life Date')
+    EOSDate = models.DateField(blank=True, null=True, verbose_name='End of Support Date')
+    
+    def __unicode__(self):
+        return u'%s %s' % (self.Name,self.Version)
+
+# the following classes are based on the libvirt xml standard, although they do not contain all the possible options
+class VirtualisationType(models.Model):
+    Name = models.CharField(max_length=128)
+    Description = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.Name
+
+    class Meta:
+        verbose_name = 'Virtualisation Type'
+	verbose_name_plural = 'Virtualisation Types'
+	ordering = ['Name']
+
+class VirtualServerDefinition(models.Model):
+    Name = models.CharField(max_length=255)
+    NumCPU = models.IntegerField(max_length=4)
+    RamMB = models.IntegerField(max_length=7)
+    DeployTo = models.ForeignKey('ConfigurationItem',null=True,blank=True)
+    DiskSizeGB = models.IntegerField(default=8,max_length=7)
+    POWER_CHOICES = (
+    	('reboot','Reboot'),
+	('destroy','Destroy'),
+	('preserve','Preserve'),
+	('coredump-destroy','Core Dump & Destroy'),
+	('coredump-restart','Core Dump & Restart'),
+    )
+    OnReboot = models.CharField(max_length=25,choices=POWER_CHOICES)
+    OnCrash = models.CharField(max_length=25,choices=POWER_CHOICES)
+    OnPowerOff = models.CharField(max_length=25,choices=POWER_CHOICES)
+    Acpi = models.BooleanField()
+    Pae = models.BooleanField()
+    NETWORK_CHOICES = (
+        ('network','Virtual Network'),
+	('bridge','LAN Bridge'),
+	('user','Userspace SLIRP Stack'),
+    )
+    NetworkType = models.CharField(max_length=10,choices=NETWORK_CHOICES)
+    BridgeNetworkInterface = models.CharField(max_length=10)
+
+
 # The configuration items (servers/switches etc)
 class ConfigurationItem(models.Model):
     Hostname = models.CharField(max_length=255)
@@ -187,8 +243,12 @@ class ConfigurationItem(models.Model):
     Class = models.ForeignKey(ConfigurationItemClass)
     Owner = models.ForeignKey(User)
     NetworkInterface = models.ManyToManyField(NetworkInterface)
+    OperatingSystem = models.ForeignKey(OperatingSystemVersion)
+    VMImagePath = models.CharField(max_length=255,blank=True,null=True,verbose_name='Path for Virtual Images')
+    IsVirtual = models.Boolean()
+    IsVMHost = models.Boolean()
+    VMDefinition = models.ForeignKey(VirtualServerDefinition,blank=True,null=True)
 
-    
     def __unicode__(self):
         return self.Hostname
     
