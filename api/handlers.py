@@ -4,7 +4,7 @@ from cmdb.models import *
 from auditorium.models import *
 
 class CfgItemHandler(BaseHandler):
-	allowed_methods = ('GET',)
+	allowed_methods = ('GET')
 
 	def read(self,request,hostname):
 		results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
@@ -40,3 +40,13 @@ class PuppetHandler(BaseHandler):
 
 class PackageHandler(BaseHandler):
 	model = Package
+
+class LibVirtHandler(BaseHandler):
+    allowed_methos = ('GET')
+
+    def read(self,request,hostname):
+        results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
+	serverDetails = results
+	virtDetails = results.VMDefinition
+	data = {'domain' : {'type' : virtDetails.VirtType, 'id' : serverDetails.id}, 'hostname' : serverDetails.Hostname}
+	return data

@@ -232,9 +232,10 @@ class VirtualServerDefinition(models.Model):
     )
     NetworkType = models.CharField(max_length=10,choices=NETWORK_CHOICES)
     BridgeNetworkInterface = models.CharField(max_length=10)
+    VMType = models.ForeignKey(VirtualisationType)
 
     def __unicode__(self):
-        return u'%s (%s cpus, %s MB RAM, %s GB Storage, %s Network using %s)' % (self.Name,self.NumCPU,self.RamMB,self.DiskSizeGB,self.NetworkType,self.BridgeNetworkInterface)
+        return u'%s (%s cpus, %s MB RAM, %s GB Storage, %s Network using %s and powered by %s)' % (self.Name,self.NumCPU,self.RamMB,self.DiskSizeGB,self.NetworkType,self.BridgeNetworkInterface,self.VMType)
 
 
 # The configuration items (servers/switches etc)
