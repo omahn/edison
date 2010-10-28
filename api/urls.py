@@ -11,7 +11,7 @@ libvirt_resource = Resource(handler=LibvirtHandler)
 urlpatterns = patterns('',
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
-    url(r'^libvirt/packages$', libvirt_resource),
+    url(r'^libvirt/(?P<hostname>[^/]+)/$', libvirt_resource), 
     url(r'^auditorium/packages$', package_resource),
 )
 
