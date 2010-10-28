@@ -48,5 +48,5 @@ class LibVirtHandler(BaseHandler):
         results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
 	serverDetails = results
 	virtDetails = results.VMDefinition
-	data = {'domain' : {'type' : virtDetails.VirtType, 'id' : serverDetails.id}, 'hostname' : serverDetails.Hostname}
+	data = {'domain' : {'type' : virtDetails.VMType, 'id' : serverDetails.id}, 'hostname' : serverDetails.Hostname}
 	return data
