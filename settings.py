@@ -112,6 +112,4 @@ INSTALLED_APPS = (
     'changemanagement',
     'orchestra',
     'auditorium',
-    'debug_toolbar',
-    'geraldo',
 )

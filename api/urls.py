@@ -6,11 +6,12 @@ from api.handlers import *
 cfgitem_resource = Resource(handler=CfgItemHandler)
 puppet_resource = Resource(handler=PuppetHandler)
 package_resource = Resource(handler=PackageHandler)
+libvirt_resource = Resource(handler=LibvirtHandler)
 
 urlpatterns = patterns('',
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
-    # url(r'^auditorium/packages/(?P<id>\d+)$', package_resource),
+    url(r'^libvirt/packages$', libvirt_resource),
     url(r'^auditorium/packages$', package_resource),
 )
 
