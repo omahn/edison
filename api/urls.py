@@ -6,7 +6,7 @@ from api.handlers import *
 cfgitem_resource = Resource(handler=CfgItemHandler)
 puppet_resource = Resource(handler=PuppetHandler)
 package_resource = Resource(handler=PackageHandler)
-libvirt_resource = Resource(handler=LibvirtHandler)
+libvirt_resource = Resource(handler=LibVirtHandler)
 
 urlpatterns = patterns('',
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
