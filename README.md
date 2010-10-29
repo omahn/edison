@@ -43,3 +43,4 @@ Also, don't forget that this is github, feel free to fork the code (paying atten
 
 [1]: http://github.com/proffalken/edison/wiki/WishList
 [2]: http://github.com/proffalken/edison/issues
+[3]: https://fedorahosted.org/cobbler/
