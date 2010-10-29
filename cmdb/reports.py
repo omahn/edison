@@ -1,3 +1,5 @@
+# This file is part of the Edison Project.
+# Please refer to the LICENSE document that was supplied with this software for information on how it can be used.
 try:
 	from geraldo import Report, landscape, ReportBand, ObjectValue, SystemField,BAND_WIDTH, Label,ReportGroup
 	from reportlab.lib.pagesizes import A5

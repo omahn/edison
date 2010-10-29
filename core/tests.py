@@ -1,3 +1,5 @@
+# This file is part of the Edison Project.
+# Please refer to the LICENSE document that was supplied with this software for information on how it can be used.
 """
 This file demonstrates two different styles of tests (one doctest and one
 unittest). These will both pass when you run "manage.py test".

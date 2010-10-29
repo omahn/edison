@@ -1,6 +1,8 @@
+# This file is part of the Edison Project.
+# Please refer to the LICENSE document that was supplied with this software for information on how it can be used.
 # Django settings for Edison project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -84,7 +86,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.RemoteUserMiddleware',
 #    'django.middleware.csrf.CsrfMiddleware',
     #'django.middleware.csrf.CsrfResponseMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
