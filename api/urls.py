@@ -9,8 +9,10 @@ cfgitem_resource = Resource(handler=CfgItemHandler)
 puppet_resource = Resource(handler=PuppetHandler)
 package_resource = Resource(handler=PackageHandler)
 libvirt_resource = Resource(handler=LibVirtHandler)
+kickstart_resource = Resource(handler=KickstartHandler)
 
 urlpatterns = patterns('',
+    url(r'^kickstart/(?P<hostname>[^/]+)/$', kickstart_resource), 
     url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
     url(r'^libvirt/(?P<hostname>[^/]+)/$', libvirt_resource), 

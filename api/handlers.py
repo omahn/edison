@@ -52,3 +52,12 @@ class LibVirtHandler(BaseHandler):
 	virtDetails = results.VMDefinition
 	data = {'domain': {'type' : virtDetails.VMType, 'id' : serverDetails.id}, 'hostname' : serverDetails.Hostname}
 	return data
+
+class KickstartHandler(BaseHandler):
+    allowed_methods = ('GET')
+
+    def read(self,request,hostname):
+        results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
+	serverProfile = results.Profile
+	data = serverProfile.AutoInstallFile.strip('"')
+	return data

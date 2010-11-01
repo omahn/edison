@@ -180,13 +180,35 @@ class NetworkInterface(models.Model):
         verbose_name_plural = 'Network Interfaces'
         ordering = ['Name']
 
+class PackageProvider(models.Model):
+    Name = models.CharField(max_length=255)
+    ExecutableName = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.Name
+
+class PackageFormat(models.Model):
+    Name = models.CharField(max_length=255)
+    Provider = models.ForeignKey(PackageProvider)
+
+    def __unicode__(self):
+        return self.Name
+
+class OperatingSystemBreed(models.Model):
+    Name = models.CharField(max_length=255)
+    PackageFormat = models.ForeignKey(PackageFormat)
+
+    def __unicode__(self):
+        return self.Name
+
 class OperatingSystemName(models.Model):
     Name = models.CharField(max_length=200)
     SupportCompany = models.ForeignKey(Company)
+    Breed = models.ForeignKey(OperatingSystemBreed)
 
     def __unicode__(self):
         return u'%s supported by %s' % (self.Name, self.SupportCompany)
-    
+
 class OperatingSystemVersion(models.Model):
     Name = models.ForeignKey(OperatingSystemName)
     Version = models.CharField(max_length=128)
@@ -239,6 +261,16 @@ class VirtualServerDefinition(models.Model):
     def __unicode__(self):
         return u'%s (%s cpus, %s MB RAM, %s GB Storage, %s Network using %s and powered by %s)' % (self.Name,self.NumCPU,self.RamMB,self.DiskSizeGB,self.NetworkType,self.BridgeNetworkInterface,self.VMType)
 
+# Configuration Item Profiles
+class ConfigurationItemProfile(models.Model):
+    Name = models.CharField(max_length=255)
+    VirtualServerDefinition = models.ForeignKey(VirtualServerDefinition,blank=True,null=True)
+    OperatingSystem = models.ForeignKey(OperatingSystemVersion)
+    AutoInstallFile = models.TextField(help_text="Paste your Kickstart/Debian a-i/Windows unattend.txt in here")
+	
+    def __unicode__(self):
+        return self.Name
+
 
 # The configuration items (servers/switches etc)
 class ConfigurationItem(models.Model):
@@ -249,11 +281,10 @@ class ConfigurationItem(models.Model):
     Class = models.ForeignKey(ConfigurationItemClass)
     Owner = models.ForeignKey(User)
     NetworkInterface = models.ManyToManyField(NetworkInterface)
-    OperatingSystem = models.ForeignKey(OperatingSystemVersion)
+    Profile = models.ForeignKey(ConfigurationItemProfile)
     VMImagePath = models.CharField(max_length=255,blank=True,null=True,verbose_name='Path for Virtual Images')
     IsVirtual = models.BooleanField()
     IsVMHost = models.BooleanField()
-    VMDefinition = models.ForeignKey(VirtualServerDefinition,blank=True,null=True)
 
     def __unicode__(self):
         return self.Hostname

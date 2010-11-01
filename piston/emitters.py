@@ -431,6 +431,14 @@ Uncomment the line below to enable it. You're doing so at your own risk.
 """
 # Mimer.register(pickle.loads, ('application/python-pickle',))
 
+
+# A custom plain text Emitter
+class RawEmitter(Emitter):
+    def render(self,request):
+        return self.construct()
+
+Emitter.register('raw',RawEmitter,'text/plain')
+
 class DjangoEmitter(Emitter):
     """
     Emitter for the Django serialized format.
