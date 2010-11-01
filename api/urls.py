@@ -12,8 +12,8 @@ libvirt_resource = Resource(handler=LibVirtHandler)
 kickstart_resource = Resource(handler=KickstartHandler)
 
 urlpatterns = patterns('',
-    url(r'^kickstart/(?P<hostname>[^/]+)/$', kickstart_resource), 
-    url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource), 
+    url(r'^kickstart/(?P<hostname>[^/]+)/$', kickstart_resource, {'emitter_format':'raw'}), 
+    url(r'^puppet/(?P<hostname>[^/]+)/$', puppet_resource,{'emitter_format':'yaml'}), 
     url(r'^hosts/(?P<hostname>[^/]+)/$', cfgitem_resource), 
     url(r'^libvirt/(?P<hostname>[^/]+)/$', libvirt_resource), 
     url(r'^auditorium/packages$', package_resource),
