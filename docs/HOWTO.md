@@ -66,4 +66,11 @@ Currently there are only two API urls that work:
 
 Both urls are generated using Piston, therefore you can get XML, JSON or YAML out of them simply by appending ?format=xml etc to the end of the query string. 
 
+e.g·
+
+http://edison/api/hosts/<FQDN of Host>/?format=xml - list the hostname, rack, room, suite, datacentre and configuration item class (server/printer etc) in xml format
+http://edison/api/puppet/<FQDN of Host>/?format=yaml - list the puppet classes and metadata in YAML format (the most likely option for puppet and the one used in edison-ext-nodes)
+
+
+
 [1] http://code.google.com/p/modwsgi/

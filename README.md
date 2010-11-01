@@ -31,6 +31,10 @@ We also have a very basic API that allows you to query the system via FQDN and e
 
 A script is also available in the 'contrib' directory that can be placed in /var/lib/puppet/lib/facter to convert the above into Facts for use in both Puppet and Mcollective as well as a basic apache config file to enable service edison via wsgi.  The third script in that directory is copied (almost in its entirity!) from [The Cobbler Project][3] and allows you to use edison as an external lookup for puppet nodes so you can tie your CMDB and Configuration Management tools together.
 
+## How do I get started?
+
+There is a document named "HOWTO.md" in the docs directory of the source-code.
+
 ## Can I get involved? 
 
 We're more than happy to take suggestions, however for the moment there is no intention to add extra people to the team as we're still not 100% sure where we're headed!
