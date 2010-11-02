@@ -44,7 +44,7 @@ class PackageHandler(BaseHandler):
 	model = Package
 
 class LibVirtHandler(BaseHandler):
-    allowed_methos = ('GET')
+    allowed_methods = ('GET')
 
     def read(self,request,hostname):
         results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
@@ -56,8 +56,9 @@ class LibVirtHandler(BaseHandler):
 class KickstartHandler(BaseHandler):
     allowed_methods = ('GET')
 
-    def read(self,request,hostname):
-        results = ConfigurationItem.objects.select_related().get(Hostname=hostname)
-	serverProfile = results.Profile
-	data = serverProfile.AutoInstallFile.strip('"')
-	return data
+    def read(self,request):
+	mac = request.META["HTTP_X_RHN_PROVISIONING_MAC_0"].replace("-",":")
+        results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__exact=mac)
+	for data in results:
+		profile = data.Profile.AutoInstallFile
+	return profile
