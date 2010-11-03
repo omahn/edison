@@ -60,7 +60,7 @@ class KickstartHandler(BaseHandler):
 	profile = ""
 	mac = request.META["HTTP_X_RHN_PROVISIONING_MAC_0"].split(" ")
 	profile = "Mac Address: " + mac[1]
-	results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__icontains=mac[1])
+	results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__icontains=mac[1],BuildOnNextBoot=True)
 	for data in results:
 	    profile = data.Profile.AutoInstallFile
 	return profile
