@@ -284,6 +284,7 @@ class ConfigurationItem(models.Model):
     Profile = models.ForeignKey(ConfigurationItemProfile)
     VMImagePath = models.CharField(max_length=255,blank=True,null=True,verbose_name='Path for Virtual Images')
     IsVirtual = models.BooleanField()
+    BuildOnNextBoot = models.BooleanField(verbose_name="PXE Build",help_text="Should this box be rebuilt the next time it is booted?")
     IsVMHost = models.BooleanField()
 
     def __unicode__(self):
