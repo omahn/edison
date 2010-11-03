@@ -57,8 +57,8 @@ class KickstartHandler(BaseHandler):
     allowed_methods = ('GET')
 
     def read(self,request):
-	mac = request.META["HTTP_X_RHN_PROVISIONING_MAC_0"].replace("-",":")
-        results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__exact=mac)
+	mac = request.META["HTTP_X_RHN_PROVISIONING_MAC_0"].split(" ")
+	results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__exact=mac[1])
 	for data in results:
 		profile = data.Profile.AutoInstallFile
 	return profile
