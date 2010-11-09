@@ -1,9 +1,24 @@
 # This file is part of the Edison Project.
 # Please refer to the LICENSE document that was supplied with this software for information on how it can be used.
+import re
 from piston.handler import BaseHandler
 from orchestra.models import *
 from cmdb.models import *
 from auditorium.models import *
+
+# function to replace words in a given string of text
+# copied shamelessly from http://www.daniweb.com/forums/thread70426.html
+
+def replace_words(text, word_dic):
+	"""
+	take a text and replace words that match a key in a dictionary with
+	the associated value, return the changed text
+	"""
+	rc = re.compile('|'.join(map(re.escape, word_dic)))
+	def translate(match):
+        	return word_dic[match.group(0)]
+	return rc.sub(translate, text)
+
 
 class CfgItemHandler(BaseHandler):
 	allowed_methods = ('GET')
@@ -55,12 +70,18 @@ class LibVirtHandler(BaseHandler):
 
 class KickstartHandler(BaseHandler):
     allowed_methods = ('GET')
-
     def read(self,request):
 	profile = ""
 	mac = request.META["HTTP_X_RHN_PROVISIONING_MAC_0"].split(" ")
-	profile = "Mac Address: " + mac[1]
+	profile = "Mac Address: " + mac[1] + "\n"
 	results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__icontains=mac[1],BuildOnNextBoot=True)
 	for data in results:
-	    profile = data.Profile.AutoInstallFile
+            # A Dict containing the defaults for the basic kickstart templating
+            ksvars = {
+                       '<<hostname>>': data.Hostname , # defaults to hostname retrieved for this MAC Address
+		       "<<tree>>":"http://"+request.META['SERVER_NAME']+"/cmdb/installtree/"+data.Hostname, # Defaults to the Edison server and cmdb view
+		       "<<rootpw>>":data.rootpwhash,
+		       '<<bootdev>>': mac[1],
+		      }
+            profile = replace_words(data.Profile.AutoInstallFile,ksvars)
 	return profile

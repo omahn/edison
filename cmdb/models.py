@@ -194,6 +194,15 @@ class PackageFormat(models.Model):
     def __unicode__(self):
         return self.Name
 
+class Repo(models.Model):
+    Name = models.CharField(max_length=255)
+    PackageProvider = models.ForeignKey(PackageProvider)
+    url = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.Name
+
+
 class OperatingSystemBreed(models.Model):
     Name = models.CharField(max_length=255)
     PackageFormat = models.ForeignKey(PackageFormat)
@@ -267,6 +276,8 @@ class ConfigurationItemProfile(models.Model):
     VirtualServerDefinition = models.ForeignKey(VirtualServerDefinition,blank=True,null=True)
     OperatingSystem = models.ForeignKey(OperatingSystemVersion)
     AutoInstallFile = models.TextField(help_text="Paste your Kickstart/Debian a-i/Windows unattend.txt in here")
+    repos = models.ManyToManyField(Repo,blank=True,null=True)
+
 	
     def __unicode__(self):
         return self.Name
@@ -286,6 +297,7 @@ class ConfigurationItem(models.Model):
     IsVirtual = models.BooleanField()
     BuildOnNextBoot = models.BooleanField(verbose_name="PXE Build",help_text="Should this box be rebuilt the next time it is booted?")
     IsVMHost = models.BooleanField()
+    rootpwhash = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.Hostname
