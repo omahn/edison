@@ -63,7 +63,7 @@ Currently there are three API urls that work:
 
 *  http://edison/api/puppet/<FQDN of Host>/ - returns metadata and puppet classes
 *  http://edison/api/hosts/<FQDN of Host>/ - returns hostname, rack, room, suite, datacentre and class.
-*  http://edison/api/kickstart/<FQDN of Host>/ - returns the value from the AutoInstallFile field on the Configuration Item Profile
+*  http://edison/api/kickstart/ - returns the value from the AutoInstallFile field on the Configuration Item Profile when sent the X-RHN-Provisioning-Mac-0 header
 
 All urls are generated using Piston, therefore you can get XML, JSON, Raw Text or YAML out of them simply by appending ?format=xml/json/raw/yaml to the end of the query string. 
 
@@ -71,7 +71,12 @@ e.g·
 
 http://edison/api/hosts/<FQDN of Host>/?format=xml - list the hostname, rack, room, suite, datacentre and configuration item class (server/printer etc) in xml format
 http://edison/api/puppet/<FQDN of Host>/?format=yaml - list the puppet classes and metadata in YAML format (the most likely option for puppet and the one used in edison-ext-nodes)
-http://edison/api/kickstart/<FQDN of Host>/?format=raw - display the contents of the AutoInstallFile as plain text
 
+The kickstart output is based upon the value in the ConfigurationItemProfile.AutoInstallFile field.  There is now support for rudimentary templating:
+
+<<hostname>> is replaced by the value of ConfigurationItem.Hostname for the MacAddress sent
+<<tree>> is replaced by http://<EDISON_SERVER>/cmdb/installtree/<ConfigurationItem.Hostname>/ - this will enable you to configure an install tree based upon the host or profile
+<<rootpw>> is replaced by the value of rootpwhash as set on the configuration item
+<<bootdev>> is replaced by the macaddress used to request the kickstart
 
 [1] http://code.google.com/p/modwsgi/
