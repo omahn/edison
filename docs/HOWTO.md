@@ -74,9 +74,9 @@ http://edison/api/puppet/<FQDN of Host>/?format=yaml - list the puppet classes a
 
 The kickstart output is based upon the value in the ConfigurationItemProfile.AutoInstallFile field.  There is now support for rudimentary templating:
 
-<<hostname>> is replaced by the value of ConfigurationItem.Hostname for the MacAddress sent
-<<tree>> is replaced by http://<EDISON_SERVER>/cmdb/installtree/<ConfigurationItem.Hostname>/ - this will enable you to configure an install tree based upon the host or profile
-<<rootpw>> is replaced by the value of rootpwhash as set on the configuration item
-<<bootdev>> is replaced by the macaddress used to request the kickstart
+	<<hostname>> is replaced by the value of ConfigurationItem.Hostname for the MacAddress sent
+	<<tree>> is replaced by http://<EDISON_SERVER>/cmdb/installtree/<ConfigurationItem.Hostname>/ - this will enable you to configure an install tree based upon the host or profile
+	<<rootpw>> is replaced by the value of rootpwhash as set on the configuration item
+	<<bootdev>> is replaced by the macaddress used to request the kickstart
 
 [1] http://code.google.com/p/modwsgi/
