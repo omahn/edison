@@ -79,7 +79,7 @@ class KickstartHandler(BaseHandler):
             # A Dict containing the defaults for the basic kickstart templating
             ksvars = {
                        '<<hostname>>': data.Hostname , # defaults to hostname retrieved for this MAC Address
-		       "<<tree>>":"http://"+request.META['SERVER_NAME']+"/cmdb/installtree/"+data.Hostname, # Defaults to the Edison server and cmdb view
+		       "<<tree>>":"http://"+request.META['SERVER_NAME']+"/media/install_trees/"+data.Profile.Name.lower().replace(' ','_'), # Serve the install tree from the media directory linked to the profile name for this host
 		       "<<rootpw>>":data.rootpwhash,
 		       '<<bootdev>>': mac[1],
 		      }
