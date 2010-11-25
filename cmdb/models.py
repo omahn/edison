@@ -169,10 +169,13 @@ class ConfigurationItemClass(models.Model):
 class NetworkInterface(models.Model):
     Name = models.CharField(max_length=5)
     MacAddress = models.CharField(max_length=30)
-    IPAddress = models.IPAddressField()
-    
+    Gateway = models.IPAddressField(blank=True, null=True)
+    SubnetMask = models.IPAddressField(blank=True, null=True)
+    IPAddress = models.IPAddressField(blank=True, null=True)
+    UseDHCP = models.BooleanField()
+
     def __unicode__(self):
-        return u'%s -> %s' % (self.IPAddress, self.MacAddress)    
+        return u'%s (%s -> %s)' % (self.Name, self.IPAddress, self.MacAddress)    
     
     class Meta:
         #permissions = ()
