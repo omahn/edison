@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.client import Client
 
 class LoginTest(TestCase):
-    fixtures = ['cmdb/fixtures/cmdb_fixtures.json']
+    fixtures = ['../initial_data.json']
 
     def setUp(self):
         # Setup the client 
@@ -17,3 +17,12 @@ class LoginTest(TestCase):
 	# Check we have recieved a '200' response
 	self.failUnlessEqual(response.status_code,200)
 
+class KickstartTest(TestCase):
+    fixtures = ['../initial_data.json']
+    def setUp(self):
+        client = Client()
+
+    def test_kickstart(self):
+        response = self.client.get('/api/kickstart/', HTTP_X_RHN_PROVISIONING_MAC_0='eth0 aa:bb:cc:dd:ee:ff' )
+
+	self.failUnlessEqual(response.content,'# NO KICKSTART REQUIRED #')
