@@ -1,11 +1,10 @@
 # This file is part of the Edison Project.
 # Please refer to the LICENSE document that was supplied with this software for information on how it can be used.
-from models import Company
 from django.test import TestCase
 from django.test.client import Client
 
-class CompanyAddressTest(TestCase):
-    fixtures = ['fixtures/cmdb_fixtures.json']
+class LoginTest(TestCase):
+    fixtures = ['cmdb/fixtures/cmdb_fixtures.json']
 
     def setUp(self):
         # Setup the client 
