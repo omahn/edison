@@ -19,7 +19,6 @@ def replace_words(text, word_dic):
         	return word_dic[match.group(0)]
 	return rc.sub(translate, text)
 
-
 class CfgItemHandler(BaseHandler):
 	allowed_methods = ('GET')
 
@@ -56,8 +55,23 @@ class PuppetHandler(BaseHandler):
 		return data
 
 class PackageHandler(BaseHandler):
-	model = Package
+	# Expects a POST request with the following Data:
+	# AffectedItem: <FQDN>
+	# Name: <PACKAGE_NAME>
+	# Version: <PACKAGE_VERSION>
+	# Repository: <REPO_NAME>
+	allowed_methods = ('POST')
+	package_model = Package
 
+	def create(self,request):
+		# get a configurationItem object
+		ci_object = ConfigurationItem.objects.get(Hostname=request.POST['AffectedItem'])
+		package_model_create = self.package_model(AffectedItem = ci_object,Name = request.POST['Name'],Version = request.POST['Version'],Repository=request.POST['Repository'])
+		package_model_create.save()
+		return package_model_create
+
+		
+		
 class LibVirtHandler(BaseHandler):
     allowed_methods = ('GET')
 
