@@ -5,6 +5,7 @@ from piston.handler import BaseHandler
 from orchestra.models import *
 from cmdb.models import *
 from auditorium.models import *
+from datetime import datetime
 
 # function to replace words in a given string of text
 # copied shamelessly from http://www.daniweb.com/forums/thread70426.html
@@ -66,7 +67,8 @@ class PackageHandler(BaseHandler):
 	def create(self,request):
 		# get a configurationItem object
 		ci_object = ConfigurationItem.objects.get(Hostname=request.POST['AffectedItem'])
-		package_model_create = self.package_model(AffectedItem = ci_object,Name = request.POST['Name'],Version = request.POST['Version'],Repository=request.POST['Repository'])
+		timestamp = datetime.now()
+		package_model_create = self.package_model(AffectedItem = ci_object,Name = request.POST['Name'],Version = request.POST['Version'],Repository=request.POST['Repository'],DateApplied=timestamp)
 		package_model_create.save()
 		return package_model_create
 

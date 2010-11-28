@@ -12,6 +12,7 @@ class Package(models.Model):
 	Version = models.CharField(max_length=255)
 	Repository = models.CharField(max_length=255)
 	AffectedItem = models.ForeignKey(ConfigurationItem)
+	DateApplied = models.DateTimeField()
 
 	def __unicode__(self):
 		return u'%s - %s' % (self.Name,self.Version)
