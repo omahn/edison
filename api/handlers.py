@@ -92,12 +92,17 @@ class KickstartHandler(BaseHandler):
 	profile = "Mac Address: " + mac[1] + "\n"
 	results = ConfigurationItem.objects.select_related().filter(NetworkInterface__MacAddress__icontains=mac[1],BuildOnNextBoot=True)
 	for data in results:
+	    # get any additional repos specified
+	    repo_string = ''
+	    for repo in data.Profile.repos.all():
+	    	repo_string = repo_string + "repo --name %s --baseurl %s \n" % (repo.Name,repo.url)
             # A Dict containing the defaults for the basic kickstart templating
             ksvars = {
                        '<<hostname>>': data.Hostname , # defaults to hostname retrieved for this MAC Address
 		       "<<tree>>":"http://"+request.META['SERVER_NAME']+"/media/install_trees/"+data.Profile.Name.lower().replace(' ','_'), # Serve the install tree from the media directory linked to the profile name for this host
 		       "<<rootpw>>":data.rootpwhash,
 		       '<<bootdev>>': mac[1],
+		       '<<repositories>>': repo_string,
 		      }
             profile = replace_words(data.Profile.AutoInstallFile,ksvars)
 	return profile
