@@ -105,4 +105,7 @@ class KickstartHandler(BaseHandler):
 		       '<<repositories>>': repo_string,
 		      }
             profile = replace_words(data.Profile.AutoInstallFile,ksvars)
+	    # Switch off the pxeboot by default
+            data.BuildOnNextBoot=False
+	    data.save()
 	return profile
