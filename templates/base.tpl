@@ -27,17 +27,6 @@
             <h1>Edison</h1>
             <p><i>"The Hamster that keeps your infrastructure running..."</i></p>
         </div>
-        <div id='section_heading'>
-            {% block title %}
-                <h5>
-                    {% if section_item_name %}
-                        Viewing: {{ title }}
-                    {% else %}
-                        Welcome to Edison, Please choose an action from the navigation below...
-                    {% endif %}
-                </h5>
-            {% endblock %}
-        </div>
         {% if user.is_authenticated %}
             <p>Welcome {{ user.first_name }} {{ user.last_name }}</p>
         {% endif %}

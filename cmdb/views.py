@@ -7,6 +7,8 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.forms import ModelForm
 from models import *
+from orchestra.models import *
+from changemanagement.models import *
 
 # Project specific imports
 from models import *
@@ -31,26 +33,31 @@ def home(request):
 def listdata(request):
     link_desc = 'Configuration Item'
     cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
-    return render_to_response('list.tpl',{'data_list':cfgitems,'link_desc':link_desc,},context_instance=RequestContext(request)) #{'data_list':cfgitems,locals()})
-
-
-# Setup the 'edit' form
-class EditForm(ModelForm):
-    class Meta:
-        model = ConfigurationItem
+    return render_to_response('cmdb/list.tpl',{'data_list':cfgitems,'link_desc':link_desc},context_instance=RequestContext(request)) #{'data_list':cfgitems,locals()})
 
 @login_required
-def edit(request,cfgid):
-    title = 'Edit an Item'
-    if request.method == "POST":
-        cfgitem = ConfigurationItem.objects.get(pk=cfgid)
-        form = EditForm(request.POST,instance=cfgitem)
-        if form.is_valid():
-           form.save()
-           request.user.message_set.create(message='The Configuration Item was updated sucessfully')
-           
-    else:
-        cfgitem = ConfigurationItem.objects.get(pk=cfgid)
-        form = EditForm(instance=cfgitem)
-    return render_to_response('cmdb/edit.tpl',{'form':form},context_instance=RequestContext(request, processors=[custom_proc]))
+def asset(request,assetId):
+	# get the details for the requested configurationItem
+	cfgResult = ConfigurationItem.objects.select_related().filter(id=assetId)
+	for cfgItem in cfgResult:
+		# get the orchestra classes and Metadata
+		orchestra_classes = OrchestraClass.objects.select_related('Name','Hostname').filter(AffectedItems__Hostname__icontains =  cfgItem.Hostname)
+		orchestra_meta = OrchestraMetaDataValue.objects.select_related('Name','Hostname').filter(AffectedItems__Hostname__icontains =  cfgItem.Hostname)
+		# Get any change requests linked to this item
+		open_change_requests = ChangeHeader.objects.filter(AffectedItems__Hostname__icontains = cfgItem.Hostname,Completed = False).count()
+		closed_change_requests = ChangeHeader.objects.filter(AffectedItems__Hostname__icontains = cfgItem.Hostname,Completed = True).count()
+		title = 'Asset Details for %s %s' % (cfgItem.Class.Name,cfgItem.Hostname)
+		return render_to_response('cmdb/asset.tpl',
+				{'data_list':cfgItem,
+				'orchestra_classes':orchestra_classes,
+				'orchestra_meta':orchestra_meta,
+				'closed_change_requests':closed_change_requests,
+				'open_change_requests':open_change_requests,
+				'title': title}
+				,context_instance=RequestContext(request)) #{'data_list':cfgitems,locals()})
+
+@login_required
+def assetlist(request):
+    cfgitems = ConfigurationItem.objects.all().order_by('Hostname')
+    return render_to_response('cmdb/list.tpl',{'data_list':cfgitems,},context_instance=RequestContext(request)) #{'data_list':cfgitems,locals()})
 
