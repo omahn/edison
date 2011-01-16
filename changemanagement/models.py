@@ -51,12 +51,14 @@ class ChangeHeader(models.Model):
         Created = models.DateField()
     	Due = models.DateTimeField()	
 	Status = models.ForeignKey(ChangeStatus)
-	Completed = models.BooleanField(editable=False)
+	Completed = models.BooleanField()
     
 	def save(self):
 		if not self.id:
-	        	self.created = datetime.date.today()
-	        super(ChangeHeader, self).save()
+	       		self.created = datetime.date.today()
+#		if self.Status.ClosesChangeRequest == True:
+#			self.Completed = True
+       		super(ChangeHeader, self).save()
 
 	def __unicode__(self):
 		return self.Title

@@ -37,12 +37,22 @@
 			{% endfor %}
 	</table>
 {% endif %}
+<!-- Change Request Information -->
 {% if open_change_requests %}
 <h3>Change Requests</h3>
 <ul>
 <li>{{ open_change_requests }} open</li>
 <li>{{ closed_change_requests }} closed</li>
 </ul>
+{% endif %}
+<!-- End change request information -->
+<!-- Software Package information -->
+{% if number_of_packages_installed %}
+<h3>Software Information</h3>
+<table>
+	<tr><td>Operating System</td><td>{{ data_list.Profile.OperatingSystem }}</td></tr>
+</table>
+<p>{{ number_of_packages_installed }} package(s) installed according to Auditorium</p>
 {% endif %}
 {% endblock %}
 

@@ -9,6 +9,7 @@ from django.forms import ModelForm
 from models import *
 from orchestra.models import *
 from changemanagement.models import *
+from auditorium.models import *
 
 # Project specific imports
 from models import *
@@ -46,6 +47,8 @@ def asset(request,assetId):
 		# Get any change requests linked to this item
 		open_change_requests = ChangeHeader.objects.filter(AffectedItems__Hostname__icontains = cfgItem.Hostname,Completed = False).count()
 		closed_change_requests = ChangeHeader.objects.filter(AffectedItems__Hostname__icontains = cfgItem.Hostname,Completed = True).count()
+		# Get the total number of packages installed on this system according to Auditorium
+		number_of_packages_installed = Package.objects.filter(AffectedItem__Hostname__icontains = cfgItem.Hostname).count()
 		title = 'Asset Details for %s %s' % (cfgItem.Class.Name,cfgItem.Hostname)
 		return render_to_response('cmdb/asset.tpl',
 				{'data_list':cfgItem,
@@ -53,8 +56,9 @@ def asset(request,assetId):
 				'orchestra_meta':orchestra_meta,
 				'closed_change_requests':closed_change_requests,
 				'open_change_requests':open_change_requests,
+				'number_of_packages_installed': number_of_packages_installed,
 				'title': title}
-				,context_instance=RequestContext(request)) #{'data_list':cfgitems,locals()})
+				,context_instance=RequestContext(request))
 
 @login_required
 def assetlist(request):
