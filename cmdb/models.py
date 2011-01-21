@@ -219,7 +219,7 @@ class OperatingSystemName(models.Model):
     Breed = models.ForeignKey(OperatingSystemBreed)
 
     def __unicode__(self):
-        return u'%s supported by %s' % (self.Name, self.SupportCompany)
+        return u'%s' % (self.Name)
 
 class OperatingSystemVersion(models.Model):
     Name = models.ForeignKey(OperatingSystemName)
