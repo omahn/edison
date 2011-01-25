@@ -7,6 +7,6 @@
             <li><a href="list/">List all {{ section_item_name }}s</a></li>
         </ul>
     {% else %}
-        <p> Welcome to Edison, Please choose an action from the list on your left...</p> 
+        <p> Welcome to Edison, Please choose an action from the menu above..</p> 
     {% endif %}
 {% endblock %}

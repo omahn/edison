@@ -1,49 +1,11 @@
-body {
-    margin:20px 0px; padding:0px;
-	text-align:center;
-    font:11px verdana,arial,helvetica,sans-serif;
-}
-
-#page {
-    position: relative;
-    margin: 0px auto;
-	text-align:left;
-    width: 600px;
-}
-
-#header {
-    position: relative;
-    margin: auto 0px;
-    overflow: hidden;
-    border-bottom: 2px #000 solid;
-}
-
-#logo {
-    position: relative;
+.r-box {
+    text-align: center;
     float: left;
-}
-
-#branding {
-    position: relative;
-    float: right;
-}
-
-#content {
-    position: relative;
-    float: left;
-}
-
-#section_heading {
-    position: relative;
-    bottom: 2px;
-    left: 70px;
-    top: 80px;
-    width: 500px;
-    text-align: left;
-}
-
-#main {
-    position: relative;
+	border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 #nav, #nav ul {

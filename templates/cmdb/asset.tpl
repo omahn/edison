@@ -3,18 +3,21 @@
 	<h1>{{ title }}</h1>
 <!-- Hardware Information -->
 {% if data_list %}
-	<h3>Hardware:</h3>
+	<h3 class='expand r-box last span-24'>Hardware:</h3>
+	<div class='span-24 last r-box'>
 	<table>
 		<tr><td>Datacentre:</td><td>{{ data_list.Rack.Room.DataCentre.Name }}</td></tr>
 		<tr><td>Room:</td><td>{{ data_list.Rack.Room.RoomName }}</td><td>Manufacturer: </td><td>{{data_list.Manufacturer.Name}}</td></tr>
 		<tr><td>Suite:</td><td>{{ data_list.Rack.Suite.SuiteName }}</td><td>Asset Number: </td><td>{{data_list.Asset}}</td></tr>
 		<tr><td>Rack:</td><td>{{ data_list.Rack.RackName }}</td><td>Serial Number/Service Tag: </td><td>{{data_list.SupportTag}}</td></tr>
 	</table>
+	</div>
 {% endif %}
 <!-- End hardware Information -->
 <!-- Configuration Management (puppet) Information -->
 {% if orchestra_classes %}
-	<h3>Configuration Management Classes</h3>
+	<h3 class='expand r-box last span-24'>Configuration Management Classes</h3>
+	<div class='span-24 last r-box'>
 	<table>
 		<tr>
 			<td>
@@ -26,33 +29,40 @@
 			</td>
 		</tr>
 	</table>
+	</div>
 {% endif %}
 <!-- End Configuration Management (puppet) Information -->
 <!-- Configuration Metadata -->
 {% if orchestra_meta %}
-	<h3>Configuration Metadata</h3>
+	<h3 class='expand r-box last span-24'>Configuration Metadata</h3>
+	<div class='span-24 last r-box'>
 	<table>
 			{% for metadata in orchestra_meta %}
 				<tr><td>{{ metadata.Name }}</td><td>{{metadata.Value}}</td></tr>
 			{% endfor %}
 	</table>
+	</div>
 {% endif %}
 <!-- Change Request Information -->
 {% if open_change_requests %}
-<h3>Change Requests</h3>
+<h3 class='expand r-box last span-24'>Change Requests</h3>
+<div class='span-24 last r-box'>
 <ul>
 <li>{{ open_change_requests }} open</li>
 <li>{{ closed_change_requests }} closed</li>
 </ul>
+</div>
 {% endif %}
 <!-- End change request information -->
 <!-- Software Package information -->
 {% if number_of_packages_installed %}
-<h3>Software Information</h3>
+<h3 class='expand r-box last span-24'>Software Information</h3>
+<div class='span-24 last r-box'>
 <table>
 	<tr><td>Operating System</td><td>{{ data_list.Profile.OperatingSystem }}</td></tr>
 </table>
 <p>{{ number_of_packages_installed }} package(s) installed according to Auditorium</p>
+</div>
 {% endif %}
 {% endblock %}
 

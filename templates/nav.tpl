@@ -1,4 +1,4 @@
-<ul id="nav">
+<ul id="nav" class='span-24 last'>
     <li><a href="/cmdb/">Configuration Management</a>
         <ul>
             <li><a href="/cmdb/assetlist">Asset List</a></li>
