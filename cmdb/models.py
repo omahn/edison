@@ -140,8 +140,8 @@ class DataCentreSuite(models.Model):
 # The racks in the suites in the rooms in the datacentres....
 class DataCentreRack(models.Model):
     RackName = models.CharField(max_length=25)
-    Room = models.ForeignKey('DataCentreRoom',blank=True)
-    Suite= models.ForeignKey('DataCentreSuite',blank=True)
+    Room = models.ForeignKey('DataCentreRoom',blank=True,null=True)
+    Suite= models.ForeignKey('DataCentreSuite',blank=True,null=True)
     
     def __unicode__(self):
         return u'%s -> %s (%s)' % (self.RackName, self.Suite, self.Room)
